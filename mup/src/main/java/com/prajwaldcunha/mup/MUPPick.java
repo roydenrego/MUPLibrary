@@ -21,12 +21,6 @@ public class MUPPick extends MUP {
         return instance;
     }
 
-
-    public MUPPick setProgressTitle(Context ctx, String title) {
-        super.setProgress(ctx, title);
-        return instance;
-    }
-
     public void pickImages(Activity ctx,String toolbarFolderTitleName,String toolbarImageTitleName,int maxNoImages,int theme){
         ImagePicker.create(ctx)
                 .folderMode(true)
@@ -42,6 +36,9 @@ public class MUPPick extends MUP {
 
 
     public void upload(Activity ctx, String url, ArrayList<Uri> images, ResponseListener listener, Options options) {
+        if(options.isDialogEnabled()) {
+            super.initProgress(ctx, options.getProgressTitle());
+        }
         new UploadTask(ctx, images, true, new HashMap<String, String>(), listener, options).execute();
     }
 

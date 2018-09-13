@@ -28,7 +28,6 @@ import okhttp3.MultipartBody;
 
 public abstract class MUP {
 
-    public static String folderName = "/folder";
     private final String TAG = "MUP";
     private ProgressDialog progressDialog;
 
@@ -43,7 +42,7 @@ public abstract class MUP {
         return false;
     }
 
-    protected void setProgress(Context ctx, String title) {
+    protected void initProgress(Context ctx, String title) {
         progressDialog = new ProgressDialog(ctx);
         progressDialog.setMax(100);
         progressDialog.setTitle(title);
@@ -207,6 +206,87 @@ public abstract class MUP {
                 result = "Not found";
             }
             return result;
+        }
+
+    }
+
+    public static class Options {
+
+        String folderName ;
+        float compressionRate;
+
+        private boolean isNotificationEnabled = false;
+        private int notificationIcon;
+        private int notificationColor;
+
+        private boolean isDialogEnabled = false;
+        private String progressTitle;
+
+
+        public Options() {
+            folderName = "/MUPData";
+            compressionRate = 20;
+            isNotificationEnabled = false;
+            notificationIcon = R.drawable.baseline_notification_important_black_24;
+            notificationColor = R.color.colorPrimary;
+        }
+
+        public void enableNotification(boolean enabled) {
+
+            isNotificationEnabled = enabled;
+        }
+
+        public void setNotificationOptions(int icon, int color) {
+            this.notificationIcon = icon;
+            this.notificationColor = color;
+        }
+
+        public void setCompressionRate(int compressionRate) {
+            this.compressionRate = compressionRate;
+        }
+
+        public void setFolderName(String folderName) {
+            this.folderName = folderName;
+        }
+
+        protected String getFolderName() {
+            return folderName;
+        }
+
+
+
+        protected float getCompressionRate() {
+            return compressionRate;
+        }
+
+
+
+        protected boolean isNotifyEnabled() {
+            return isNotificationEnabled;
+        }
+
+        protected int getNotificationIcon() {
+            return notificationIcon;
+        }
+
+        protected int getNotificationColor() {
+            return notificationColor;
+        }
+
+        public void enableProgressDialog(boolean enabled) {
+            this.isDialogEnabled = enabled;
+        }
+
+        public void setProgressTitle(String title) {
+            this.progressTitle = title;
+        }
+
+        protected String getProgressTitle() {
+            return this.progressTitle;
+        }
+
+        public boolean isDialogEnabled() {
+            return this.isDialogEnabled;
         }
 
     }
